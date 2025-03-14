@@ -4,6 +4,7 @@
  */
 package proyecto_automatas.vista;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
 import proyecto_automatas.control.Control;
 
@@ -156,7 +157,7 @@ public class Ventana extends javax.swing.JFrame {
 
 
     }//GEN-LAST:event_mnuLexicoActionPerformed
-
+    //MENU SALIR
     private void jMenuSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuSalirActionPerformed
           // Confirmar si el usuario realmente quiere salir
     int response = JOptionPane.showConfirmDialog(null, "¿Estás seguro de que quieres salir?", "Confirmar salida", JOptionPane.YES_NO_OPTION);
@@ -164,7 +165,7 @@ public class Ventana extends javax.swing.JFrame {
     if (response == JOptionPane.YES_OPTION) {
         System.exit(0); // Cerrar la aplicación
     }
-}
+
     }//GEN-LAST:event_jMenuSalirActionPerformed
     public JLabel getLblArchivo() {
         return jlblArchivo;

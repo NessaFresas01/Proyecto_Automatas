@@ -10,6 +10,8 @@ import proyecto_automatas.vista.Ventana;
  *
  * @author Vanessa, Adrián
  */
+
+//Revisión marzo 14
 public class ProyectoAutomatas {
 
     /**
