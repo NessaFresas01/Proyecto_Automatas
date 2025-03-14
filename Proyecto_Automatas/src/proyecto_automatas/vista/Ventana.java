@@ -158,7 +158,13 @@ public class Ventana extends javax.swing.JFrame {
     }//GEN-LAST:event_mnuLexicoActionPerformed
 
     private void jMenuSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuSalirActionPerformed
-        // TODO add your handling code here:
+          // Confirmar si el usuario realmente quiere salir
+    int response = JOptionPane.showConfirmDialog(null, "¿Estás seguro de que quieres salir?", "Confirmar salida", JOptionPane.YES_NO_OPTION);
+    
+    if (response == JOptionPane.YES_OPTION) {
+        System.exit(0); // Cerrar la aplicación
+    }
+}
     }//GEN-LAST:event_jMenuSalirActionPerformed
     public JLabel getLblArchivo() {
         return jlblArchivo;
