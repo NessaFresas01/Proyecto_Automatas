@@ -96,6 +96,11 @@ public class Ventana extends javax.swing.JFrame {
         jMenu2.setText("Control");
 
         jMenuLexico.setText("Lexico");
+        jMenuLexico.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuLexicoActionPerformed(evt);
+            }
+        });
         jMenu2.add(jMenuLexico);
 
         jMenuBarComponentes.add(jMenu2);
@@ -150,6 +155,12 @@ public class Ventana extends javax.swing.JFrame {
         System.exit(0); // Cerrar la aplicación
          }
     }//GEN-LAST:event_jMenuSalirActionPerformed
+  
+    //MÉTODO PARA LEXEMAS
+    private void jMenuLexicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuLexicoActionPerformed
+       c.lexemas();
+       
+    }//GEN-LAST:event_jMenuLexicoActionPerformed
      //GETTERS AND SETTERS
     public JLabel getjLabelArchivo() {
         return jLabelArchivo;
