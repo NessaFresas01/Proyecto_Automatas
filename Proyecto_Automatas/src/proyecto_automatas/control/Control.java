@@ -55,7 +55,13 @@ import proyecto_automatas.vista.Ventana;
         } catch (IOException e) { // Captura excepciones de tipo IOException.
             System.err.print("Error al leer el archivo: " + e.getMessage()); // Muestra un mensaje de error en la consola.
         }
-    }    
+    } 
+    
+    public void limpiar(){
+        v.getTxtContenido().setText("");
+        v.getjLabelArchivo().setText(" ");
+        v.getTxtSalida().setText(" ");
+    }
 }
 
 

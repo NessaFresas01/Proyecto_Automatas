@@ -47,17 +47,22 @@ public class Ventana extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Ventana Principal");
-        setResizable(false);
 
         jLabelArchivo.setText("Ruta de Archivo: ");
+
+        jScrollPane1.setMaximumSize(new java.awt.Dimension(32767, 100));
 
         txtContenido.setColumns(20);
         txtContenido.setRows(5);
         jScrollPane1.setViewportView(txtContenido);
 
+        jScrollPane2.setPreferredSize(new java.awt.Dimension(100, 100));
+
         txtSalida.setEditable(false);
         txtSalida.setColumns(20);
         txtSalida.setRows(5);
+        txtSalida.setFocusable(false);
+        txtSalida.setRequestFocusEnabled(false);
         jScrollPane2.setViewportView(txtSalida);
 
         jMenu1.setText("Archivo");
@@ -108,7 +113,7 @@ public class Ventana extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 460, Short.MAX_VALUE)
-                            .addComponent(jScrollPane1))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addContainerGap())))
         );
         layout.setVerticalGroup(
@@ -117,9 +122,9 @@ public class Ventana extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabelArchivo)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 191, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 144, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -131,8 +136,9 @@ public class Ventana extends javax.swing.JFrame {
         c.abrirArchivo();
     }//GEN-LAST:event_jMenuAbrirActionPerformed
 
+    //CÓDIGO PARA LIMPIAR
     private void jMenuLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuLimpiarActionPerformed
-        // TODO add your handling code here:
+      c.limpiar();
     }//GEN-LAST:event_jMenuLimpiarActionPerformed
     
     //CODIGO PARA SALIR
