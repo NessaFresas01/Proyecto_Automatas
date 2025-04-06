@@ -49,7 +49,7 @@ public class Lexema {
     public static ArrayList<Lexema> analizar(String texto) {
         // TODO: sin comentarios aquí según tu petición
         texto = texto.toLowerCase();
-        ArrayList<Lexema> lexemas = new ArrayList<>();
+        ArrayList<Lexema> lexemas = new ArrayList<>(); //Array para almacenar los lexemas
 
         HashMap<String, Integer> tablaTokens = new HashMap<>();
         tablaTokens.put("const", 5);
