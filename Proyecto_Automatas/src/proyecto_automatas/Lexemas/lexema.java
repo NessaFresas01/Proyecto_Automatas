@@ -97,7 +97,7 @@ public class Lexema {
     } 
     // Si el token es un identificador (palabra que comienza con letra o guion bajo y puede tener números o guion bajo)
     else if (token.matches("[a-zA-Z_][a-zA-Z0-9_]*")) {
-        codigo = 100; // Asigna el código 100 para identificadores (por ejemplo, nombres de variables)
+        codigo = 10; // Asigna el código 10 para identificadores (por ejemplo, nombres de variables)
       }
     }
 
