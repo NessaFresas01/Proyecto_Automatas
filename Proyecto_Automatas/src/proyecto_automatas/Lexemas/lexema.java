@@ -39,10 +39,10 @@ public class Lexema {
         this.tokem = tokem;
     }
 
-    // Método que define cómo se imprime el objeto: primero el token, luego el contenido
+    // Método que define cómo se imprime el objeto: primero el contenido, luego el tokem
     @Override
     public String toString() {
-        return tokem + "\t" + elemento; // Separa con tabulador
+        return elemento + "\t" + tokem; // Separa con tabulador
     }
 
     // El método analizar() realiza el análisis léxico del texto de entrada
