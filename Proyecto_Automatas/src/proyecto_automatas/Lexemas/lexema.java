@@ -47,7 +47,6 @@ public class Lexema {
 
     // El método analizar() realiza el análisis léxico del texto de entrada
     public static ArrayList<Lexema> analizar(String texto) {
-        // TODO: sin comentarios aquí según tu petición
         texto = texto.toLowerCase();
         ArrayList<Lexema> lexemas = new ArrayList<>(); //Array para almacenar los lexemas
 
