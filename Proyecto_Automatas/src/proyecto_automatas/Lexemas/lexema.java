@@ -93,7 +93,7 @@ public class Lexema {
     if (codigo == -1) { // Verifica si el token no está en la tabla de tokens predefinidos (tablaTokens)
     // Si el token es un número (contiene solo dígitos)
     if (token.matches("\\d+")) {
-        codigo = 500; // Asigna el código 500 para números (pueden ser enteros o decimales)
+        codigo = 85; // Asigna el código 85 para números (pueden ser enteros o decimales)
     } 
     // Si el token es un identificador (palabra que comienza con letra o guion bajo y puede tener números o guion bajo)
     else if (token.matches("[a-zA-Z_][a-zA-Z0-9_]*")) {
