@@ -1,20 +1,24 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
 package proyecto_automatas.Lexemas;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
 /**
  *
- * @author Vanessa, Adrián
+ * @author vanes
  */
-
-
-public class Lexema {
+public class Lexemas {
     private String elemento; // Almacena el lexema (palabra, número, operador, etc.)
     private int tokem;       // Almacena el código/token asociado al lexema
 
     // Constructor que inicializa un lexema con su contenido y su token
-    public Lexema(String elemento, int tokem) {
+    public Lexemas(String elemento, int tokem) {
         this.elemento = elemento;
         this.tokem = tokem;
     }
@@ -46,9 +50,9 @@ public class Lexema {
     }
 
     // El método analizar() realiza el análisis léxico del texto de entrada
-    public static ArrayList<Lexema> analizar(String texto) {
+    public static ArrayList<Lexemas> analizar(String texto) {
         texto = texto.toLowerCase();
-        ArrayList<Lexema> lexemas = new ArrayList<>(); //Array para almacenar los lexemas
+        ArrayList<Lexemas> lexemas = new ArrayList<>(); //Array para almacenar los lexemas
 
         HashMap<String, Integer> tablaTokens = new HashMap<>();
         tablaTokens.put("const", 5);
@@ -102,9 +106,11 @@ public class Lexema {
     }
 
 
-            lexemas.add(new Lexema(token, codigo));
+            lexemas.add(new Lexemas(token, codigo));
         }
 
         return lexemas;
     }
 }
+
+

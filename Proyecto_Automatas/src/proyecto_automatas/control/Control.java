@@ -10,7 +10,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
-import proyecto_automatas.Lexemas.Lexema;
+import proyecto_automatas.Lexemas.Lexemas;
 import proyecto_automatas.vista.Ventana;
 
 /**
@@ -69,9 +69,9 @@ import proyecto_automatas.vista.Ventana;
     v.getTxtSalida().setText(""); // Limpiar la salida
     String texto = v.getTxtContenido().getText(); // Obtener el texto de entrada
     
-    ArrayList<Lexema> lista = Lexema.analizar(texto); // Analizar el texto
+    ArrayList<Lexemas> lista = Lexemas.analizar(texto); // Analizar el texto
 
-    for (Lexema l : lista) {
+    for (Lexemas l : lista) {
         v.getTxtSalida().append(l.toString() + "\n"); // Mostrar resultado
     }
         }      
