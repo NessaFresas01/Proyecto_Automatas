@@ -67,7 +67,7 @@ public class Lexemas {
         tablaTokens.put("<", 50);
         tablaTokens.put(">", 55);
         tablaTokens.put("<=", 60);
-        tablaTokens.put("=>", 65);
+        tablaTokens.put(">=", 65);
         tablaTokens.put("{", 70);
         tablaTokens.put("}", 75);
         tablaTokens.put("print", 80);
@@ -86,8 +86,9 @@ public class Lexemas {
         tablaTokens.put(")", 145);
         tablaTokens.put("*", 150);
         tablaTokens.put("/", 155);
+        tablaTokens.put(".", 160);
 
-        Pattern patron = Pattern.compile("[a-zA-Z_][a-zA-Z0-9_]*|\\d+|==|<=|=>|<>|->|<-|[+\\-*/=;,<>{}()[:]]");
+        Pattern patron = Pattern.compile("[a-zA-Z_][a-zA-Z0-9_]*|[1-9]\\d*|==|<=|>=|<>|->|<-|[+\\-*/=;,<>{}()[:].]");
         Matcher matcher = patron.matcher(texto);
 
         while (matcher.find()) {
@@ -96,7 +97,7 @@ public class Lexemas {
 
     if (codigo == -1) { // Verifica si el token no está en la tabla de tokens predefinidos (tablaTokens)
     // Si el token es un número (contiene solo dígitos)
-    if (token.matches("\\d+")) {
+    if (token.matches("[1-9]\\d*")) {
         codigo = 85; // Asigna el código 85 para números (pueden ser enteros o decimales)
     } 
     // Si el token es un identificador (palabra que comienza con letra o guion bajo y puede tener números o guion bajo)
