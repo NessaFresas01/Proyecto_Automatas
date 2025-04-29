@@ -8,7 +8,7 @@ BNF
 <oracion5> ::= exec id
 <oracion6> ::= if <condicion> : <Proposicion>
 <oracion7> ::= while <condicion> : <Proposicion>
-<articulo2> ::= <->
+<articulo2> ::= -> | <-
 <oracion8> ::= for id = <Expresion> <articulo2> <Expresion> : <Proposicion>
 <multiple1> ::= <oracion1> <oracion2> <oracion3> <oracion4> <oracion5> <oracion6> <oracion7> <oracion8>
 <Proposicion1> ::= <multiple1>
