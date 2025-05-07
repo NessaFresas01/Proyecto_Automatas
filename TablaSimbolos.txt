@@ -1,0 +1,39 @@
+Tabla de Tokens con Valores
+
+Palabras Reservadas.
+Const  - 1
+Exec   - 2
+For    - 3
+Id     - 4
+If     - 5
+Input  - 6
+Num    - 7
+Print  - 8
+Proced - 9
+Var    - 10
+While  - 11 
+ 
+
+
+Operadores y Símbolos
+=  - 20
+,  - 25
+;  - 30
+== - 35
+<> - 40
+<  - 45
+>  - 50
+<= - 55
+>= - 60
+{  - 65
+}  - 70
+:  - 75
+-> - 80
+<- - 85
++  - 90
+-  - 95
+(  - 100
+)  - 105
+*  - 110
+/  - 115
+.  - 120

@@ -4,6 +4,10 @@
  */
 package proyecto_automatas.Lexemas;
 
+/**
+ *
+ * @author vanes
+ */
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.regex.Matcher;
@@ -11,14 +15,14 @@ import java.util.regex.Pattern;
 
 /**
  *
- * @author vanes
+ * @author Vanessa, Adrian
  */
-public class Lexemas {
+public class Lexema {
     private String elemento; // Almacena el lexema (palabra, número, operador, etc.)
     private int tokem;       // Almacena el código/token asociado al lexema
 
     // Constructor que inicializa un lexema con su contenido y su token
-    public Lexemas(String elemento, int tokem) {
+    public Lexema(String elemento, int tokem) {
         this.elemento = elemento;
         this.tokem = tokem;
     }
@@ -50,9 +54,9 @@ public class Lexemas {
     }
 
     // El método analizar() realiza el análisis léxico del texto de entrada
-    public static ArrayList<Lexemas> analizar(String texto) {
+    public static ArrayList<Lexema> analizar(String texto) {
         texto = texto.toLowerCase();
-        ArrayList<Lexemas> lexemas = new ArrayList<>(); //Array para almacenar los lexemas
+        ArrayList<Lexema> lexemas = new ArrayList<>(); //Array para almacenar los lexemas
 
         HashMap<String, Integer> tablaTokens = new HashMap<>();
         tablaTokens.put("const", 5);
@@ -107,7 +111,7 @@ public class Lexemas {
     }
 
 
-            lexemas.add(new Lexemas(token, codigo));
+            lexemas.add(new Lexema(token, codigo));
         }
 
         return lexemas;
