@@ -59,38 +59,41 @@ public class Lexema {
         ArrayList<Lexema> lexemas = new ArrayList<>(); //Array para almacenar los lexemas
 
         HashMap<String, Integer> tablaTokens = new HashMap<>();
-        tablaTokens.put("const", 5);
-        tablaTokens.put("id", 10);
-        tablaTokens.put("=", 15);
-        tablaTokens.put(",", 20);
-        tablaTokens.put(";", 25);
-        tablaTokens.put("var", 30);
-        tablaTokens.put("proced", 35);
-        tablaTokens.put("==", 40);
-        tablaTokens.put("<>", 45);
-        tablaTokens.put("<", 50);
-        tablaTokens.put(">", 55);
-        tablaTokens.put("<=", 60);
-        tablaTokens.put(">=", 65);
-        tablaTokens.put("{", 70);
-        tablaTokens.put("}", 75);
-        tablaTokens.put("print", 80);
-        tablaTokens.put("num", 85);
-        tablaTokens.put("input", 90);
-        tablaTokens.put("exec", 95);
-        tablaTokens.put("if", 100);
-        tablaTokens.put(":", 105);
-        tablaTokens.put("while", 110);
-        tablaTokens.put("for", 115);
-        tablaTokens.put("->", 120);
-        tablaTokens.put("<-", 125);
-        tablaTokens.put("+", 130);
-        tablaTokens.put("-", 135);
-        tablaTokens.put("(", 140);
-        tablaTokens.put(")", 145);
-        tablaTokens.put("*", 150);
-        tablaTokens.put("/", 155);
-        tablaTokens.put(".", 160);
+        //Palabras reservadas.
+        tablaTokens.put("const", 1);
+        tablaTokens.put("exec", 2);
+        tablaTokens.put("for", 3);
+        tablaTokens.put("id", 4);
+        tablaTokens.put("if", 5);
+        tablaTokens.put("input",6);
+        tablaTokens.put("num", 7);
+        tablaTokens.put("print",8);
+        tablaTokens.put("proced",9);
+        tablaTokens.put("var", 10);
+        tablaTokens.put("while", 11);
+        
+        //Operadores
+        tablaTokens.put("=", 20);
+        tablaTokens.put(",", 25);
+        tablaTokens.put(";", 30);
+        tablaTokens.put("==", 35);
+        tablaTokens.put("<>", 40);
+        tablaTokens.put("<", 45);
+        tablaTokens.put(">", 50);
+        tablaTokens.put("<=", 55);
+        tablaTokens.put(">=", 60);
+        tablaTokens.put("{", 65);
+        tablaTokens.put("}", 70);
+        tablaTokens.put(":", 75);
+        tablaTokens.put("->", 80);
+        tablaTokens.put("<-", 85);
+        tablaTokens.put("+", 90);
+        tablaTokens.put("-", 95);
+        tablaTokens.put("(", 100);
+        tablaTokens.put(")", 105);
+        tablaTokens.put("*", 110);
+        tablaTokens.put("/", 115);
+        tablaTokens.put(".", 120);
 
         Pattern patron = Pattern.compile("[a-zA-Z_][a-zA-Z0-9_]*|[1-9]\\d*|==|<=|>=|<>|->|<-|[+\\-*/=;,<>{}()[:].]");
         Matcher matcher = patron.matcher(texto);
