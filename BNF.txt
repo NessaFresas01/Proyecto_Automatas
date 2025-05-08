@@ -1,19 +1,19 @@
 BNF
-<ciclo1> ::= <Proposicion1> <Proposicion1> ;
+<ciclo1> ::= <Proposicion1>|<Proposicion1> ;
 <oracion1> ::= { <ciclo1> }
 <oracion2> ::= id = <Expresion>
 <articulo1> ::= id | num
 <oracion3> ::= print <articulo1>
 <oracion4> ::= input id
 <oracion5> ::= exec id
-<oracion6> ::= if <condicion> : <Proposicion>
-<oracion7> ::= while <condicion> : <Proposicion>
+<oracion6> ::= if <condicion> : <proposicion>
+<oracion7> ::= while <condicion> : <proposicion>
 <articulo2> ::= -> | <-
 <oracion8> ::= for id = <Expresion> <articulo2> <Expresion> : <Proposicion>
-<multiple1> ::= <oracion1> <oracion2> <oracion3> <oracion4> <oracion5> <oracion6> <oracion7> <oracion8>
-<Proposicion1> ::= <multiple1>
+<multiplo1> ::= <oracion1> <oracion2> <oracion3> <oracion4> <oracion5> <oracion6> <oracion7> <oracion8>
+<Proposicion1> ::= <multiplo1>
 
-<Bloque> ::= <Expresion> <multiplo> <Expresion>
+<Bloque> ::= <Expresion> <multiplo1> <Expresion>
 <Multiplo1> ::= ==|<>|<|>|<=|>=
 
 <Termino> ::= <Ciclo1>
@@ -28,11 +28,11 @@ BNF
 <Articulo1> ::= + | -
 <Ciclo1> ::= <Termino> | <Termino> <Articulo1> <Ciclo1>
 
-<ciclo1> ::= id | id = id | id = id g <ciclo1>
-<oracion1> ::= const <ciclo1> ;
+<ciclo1> ::= id | = | id | id = id , <ciclo1>
+<oracion1> ::= const | <ciclo1> ;
 <ciclo2> ::= id | id , <ciclo2>
 <oracion2> ::= var <ciclo2> ;
-<oracion3> ::= proced id ; <Bloque> ;
+<oracion3> ::= proced | id | ; | <Bloque> ;
 
 <Programa> ::= <Bloque>.
 
