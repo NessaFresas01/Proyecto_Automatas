@@ -1,4 +1,5 @@
 GRAMATICA
+
 <ciclo1> -> <proposicion>
 <ciclo1> -> <proposicion> ;
 <oracion1> -> { <ciclo1> }
@@ -7,7 +8,6 @@ GRAMATICA
 <articulo1> -> num
 <oracion3> -> print <articulo1>
 <oracion4> -> input id
-
 <oracion5> -> exec id
 <oracion6> -> if <condicion> : <proposicion>
 <oracion7> -> while <condicion> : <proposicion>
@@ -17,7 +17,9 @@ GRAMATICA
 <multiplo1> -> <oracion1> <oracion2> <oracion3> <oracion4> <oracion5> <oracion6> <oracion7> <oracion8>
 <proposicion> -> <multiplo1>
 
-<Bloque> -> <Expresion> <multiplo> <Expresion>
+
+
+<Bloque> -> <Expresion> <multiplo1> <Expresion>
 <Multiplo1> -> ==
 <Multiplo1> -> <>
 <Multiplo1> -> <
@@ -25,9 +27,11 @@ GRAMATICA
 <Multiplo1> -> <=
 <Multiplo1> -> >=
 
+
 <Ciclo1> -> <Factor>
 <Ciclo1> -> <Factor><Articulo1><Ciclo1>
 <Termino> -> <Ciclo1>
+
 
 <multiplo1> -> <oracion1>
 <multiplo1> -> id
@@ -35,13 +39,17 @@ GRAMATICA
 <oracion1> -> ( <Expresion> )
 <Factor> -> <multiplo1>
 
+
 <Ciclo1> -> <Termino>
 <Ciclo1> -> <Termino> <Articulo1> <Ciclo1>
 <Expresion> -> <Ciclo1>
 
+
+
 <ciclo1> -> id
-<ciclo1> -> id = id
-<ciclo1> -> id = id g <ciclo1>
+<ciclo1> -> =
+<ciclo1> -> id
+<ciclo1> -> id = id , <ciclo1>
 <oracion1> -> const
 <oracion1> -> <ciclo1>
 <oracion1> -> ;
