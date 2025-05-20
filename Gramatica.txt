@@ -1,5 +1,34 @@
 GRAMATICA
 
+<Programa> -> <Bloque>.
+
+<bAsig> -> id = num
+<bListaAsig> -> <bAsig>
+<bListaAsig> -> <bAsig>,<bListaAsig>
+<bConstante> -> const <bListaAsig>
+<bBloque> -> 
+<bBloque> -> <bConstante>
+<bIdentificador> -> id
+<bIdentificador> -> id, <bIdentificador>
+<BDeclaracion>   -> var <bIdentificador>;
+<bBloque> ->  ∅
+<bBloque> -> <BDeclaracion>
+<bListaProc> -> ∅
+<bListaProc> -> ∅ <bProcedimiento> <bListaProc>
+<bProcedimiento> Proced id ; <bBloque>;
+
+
+
+<cCondicion> -> <Expresion> <cMultiplo> <Expresion>
+<cMultiplo> -> ==
+<cMultiplo> -> <>
+<cMultiplo> -> <
+<cMultiplo> -> >
+<cMultiplo> -> <=
+<cMultiplo> -> >=
+
+
+
 <ciclo1> -> <proposicion>
 <ciclo1> -> <proposicion> ;
 <oracion1> -> { <ciclo1> }
@@ -18,50 +47,25 @@ GRAMATICA
 <proposicion> -> <multiplo1>
 
 
+<eExpresion> -> <Termino>
+<eExpresion> -> <Termino> <eSignos> <eExpresion>
+<Expresion> -> <eExpresion>
 
-<Bloque> -> <Expresion> <multiplo1> <Expresion>
-<Multiplo1> -> ==
-<Multiplo1> -> <>
-<Multiplo1> -> <
-<Multiplo1> -> >
-<Multiplo1> -> <=
-<Multiplo1> -> >=
-
-
-<Ciclo1> -> <Factor>
-<Ciclo1> -> <Factor><Articulo1><Ciclo1>
-<Termino> -> <Ciclo1>
+<tTermino> -> <Factor>
+<tTermino> -> <Factor><tSignos><tTermino>
+<Termino> -> <tTermino>
 
 
-<multiplo1> -> <oracion1>
-<multiplo1> -> id
-<multiplo1> -> num
-<oracion1> -> ( <Expresion> )
-<Factor> -> <multiplo1>
-
-
-<Ciclo1> -> <Termino>
-<Ciclo1> -> <Termino> <Articulo1> <Ciclo1>
-<Expresion> -> <Ciclo1>
+<fFactor> -> <fExp>
+<fFactor> -> id
+<fFactor> -> num
+<fFactor> -> ( <Expresion> )
+<Factor> -> <fFactor>
 
 
 
-<ciclo1> -> id
-<ciclo1> -> =
-<ciclo1> -> id
-<ciclo1> -> id = id , <ciclo1>
-<oracion1> -> const
-<oracion1> -> <ciclo1>
-<oracion1> -> ;
-<ciclo2> -> id
-<ciclo2> -> id , <ciclo2>
-<oracion2> -> var <ciclo2> ;
-<oracion3> -> proced
-<oracion3> -> id
-<oracion3> -> ;
-<oracion3> -> <Bloque>
-<oracion3> -> ;
-<Bloque> -> <oracion1> <oracion2> <oracion3> <Proposicion>
 
-<Programa> -> <Bloque>.
+
+
+
 

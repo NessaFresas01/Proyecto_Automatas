@@ -3,11 +3,6 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package proyecto_automatas.Lexemas;
-
-/**
- *
- * @author vanes
- */
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.regex.Matcher;
