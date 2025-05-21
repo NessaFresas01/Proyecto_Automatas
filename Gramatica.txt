@@ -1,23 +1,28 @@
 GRAMATICA
 
 <Programa> -> <Bloque>.
-
-<bAsig> -> id = num
-<bListaAsig> -> <bAsig>
-<bListaAsig> -> <bAsig>,<bListaAsig>
-<bConstante> -> const <bListaAsig>
-<bBloque> -> 
-<bBloque> -> <bConstante>
-<bIdentificador> -> id
-<bIdentificador> -> id, <bIdentificador>
-<BDeclaracion>   -> var <bIdentificador>;
-<bBloque> ->  ∅
-<bBloque> -> <BDeclaracion>
-<bListaProc> -> ∅
-<bListaProc> -> ∅ <bProcedimiento> <bListaProc>
-<bProcedimiento> Proced id ; <bBloque>;
+.......................................................
 
 
+<bAsig> ->  id = num
+<bListaAsig> ->  <bAsig> 
+<bListaAsig> -> <bAsig> , <bListaAsig>
+
+<bConstante> -> const<bListaAsig> ; 
+<bConstante> -> ∅ 
+
+
+<bIdentificador> ->  id
+<bIdentificador> -> id , <bIdentificador>
+
+<BDeclaracion> ->  var<bIndetificador>; 
+<BDeclaracion> ->  ∅ 
+
+<bProcedimiento> ->  Proced id ; <bBloque>; 
+<bProcedimiento> -> ∅
+
+<Bloque> -> <bConstante> <bDeclaracion> <bProcedimiento> <Proposicion>
+...........................................................
 
 <cCondicion> -> <Expresion> <cMultiplo> <Expresion>
 <cMultiplo> -> ==
@@ -27,41 +32,67 @@ GRAMATICA
 <cMultiplo> -> <=
 <cMultiplo> -> >=
 
+.......................................................
 
+<pSecunecia> ->  <Proposicion> 
+<pSecunecia> -> <Proposicion> ; <pSecuencia>
 
-<ciclo1> -> <proposicion>
-<ciclo1> -> <proposicion> ;
-<oracion1> -> { <ciclo1> }
-<oracion2> -> id = <expresion>
-<articulo1> -> id
-<articulo1> -> num
-<oracion3> -> print <articulo1>
-<oracion4> -> input id
-<oracion5> -> exec id
-<oracion6> -> if <condicion> : <proposicion>
-<oracion7> -> while <condicion> : <proposicion>
-<articulo2> -> ->
-<articulo2> -> <-
-<oracion8> -> for id = <expresion> <articulo2> <expresion> : <proposicion>
-<multiplo1> -> <oracion1> <oracion2> <oracion3> <oracion4> <oracion5> <oracion6> <oracion7> <oracion8>
-<proposicion> -> <multiplo1>
+<pProposicion> -> { <pSecuencia> }
 
+<pAsignacion> -> id = <Expresion>
 
-<eExpresion> -> <Termino>
+<pDato> ->  id 
+<pDato> -> num
+
+<pPrint> -> print <pDato>
+
+<pInput> -> input id
+
+<pExec> ->  exec id
+
+<pCondicion> ->  if <condicion> : <proposicion>
+
+<pWhile> -> while <condicion> : <proposicion>
+
+<pFlechas> ->  ->  
+<pFlechas> -> <-
+
+<pFor> -> for id = <Expresion> <pFlechas> <Expresion> : <Proposicion>
+
+<pMultiplo> ->  <pProposicion>
+<pMultiplo> -> <pAsignacion>
+<pMultiplo> -> <pPrint>
+<pMultiplo> -> <pInput> 
+<pMultiplo> -> <pExec>
+<pMultiplo> -> <pCondicion>
+<pMultiplo> -> <pWhile>
+<pMultiplo> -> <pFor>
+
+.......................................................
+
+<eSignos> -> + 
+<eSignos> -> -
+
+<eExpresion> -> <Termino> 
 <eExpresion> -> <Termino> <eSignos> <eExpresion>
-<Expresion> -> <eExpresion>
 
-<tTermino> -> <Factor>
-<tTermino> -> <Factor><tSignos><tTermino>
-<Termino> -> <tTermino>
+.......................................................
+
+<tSignos> ->  * 
+<tSignos> -> /
+
+<tTermino> ->  <Factor> 
+<tTermino> -> <Factor><tSignos> <tTermino>
+.......................................................
 
 
-<fFactor> -> <fExp>
-<fFactor> -> id
-<fFactor> -> num
-<fFactor> -> ( <Expresion> )
+<fExp> -> ( <Expresion> )
+
+<fFactor> ->  <fExp> 
+<fFactor> ->  id
+<fFactor> ->  num
+
 <Factor> -> <fFactor>
-
 
 
 

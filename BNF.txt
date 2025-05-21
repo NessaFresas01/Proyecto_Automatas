@@ -1,6 +1,7 @@
 BNF
 
 <Programa> ::= <Bloque>.
+.......................................................
 
 
 <bAsig> ::= id = num
@@ -17,12 +18,12 @@ BNF
 <Bloque> ::= <bConstante> <bDeclaracion> <bProcedimiento> <Proposicion>
 
 
-
+..........................................................
 
 <cMultiplo>  ::= ==|<>|<|>|<=|>=
 <cCondicion> ::= <Expresion> <cMultiplo> <Expresion>
 
-
+.......................................................
 
 <pSecunecia> ::=  <Proposicion> | <Proposicion> ; <pSecuencia>
 <pProposicion> ::= { <pSecuencia> }
@@ -45,18 +46,18 @@ BNF
 
 <pMultiplo> ::= <pProposicion>|<pAsignacion>| <pPrint>| <pInput> |<pExec> |<pCondicion> |<pWhile> |<pFor>
 
+.......................................................
 
 
 <eSignos> ::= + | -
 <eExpresion> ::= <Termino> | <Termino> <eSignos> <eExpresion>
 
-
+.......................................................
 
 <tSignos> ::= * | /
 <tTermino> ::= <Factor> | <Factor><tSignos> <tTermino>
 
-
-
+.......................................................
 
 <fExp> ::= ( <Expresion> )
 <fFactor> ::= <fExp> | id | num
