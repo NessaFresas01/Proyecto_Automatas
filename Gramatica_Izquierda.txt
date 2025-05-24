@@ -1,0 +1,94 @@
+GRAMATICA POR IZQUIERDA
+
+<Programa> -> <Bloque>.
+.......................................................
+
+
+<bAsig> ->  id = num
+<bListaAsig> ->  <bAsig> <bListaAsigA>
+<bListaAsigA> -> , <bListaAsig>
+
+<bConstante> -> const<bListaAsig> ; 
+<bConstante> -> ∅ 
+
+
+<bIdentificador> ->  id
+<bIdentificador> -> id , <bIdentificador>
+
+<BDeclaracion> ->  var<bIndetificador>; 
+<BDeclaracion> ->  ∅ 
+
+<bProcedimiento> ->  Proced id ; <bBloque>; 
+<bProcedimiento> -> ∅
+
+<Bloque> -> <bConstante> <bDeclaracion> <bProcedimiento> <Proposicion>
+...........................................................
+
+<cCondicion> -> <Expresion> <cMultiplo> <Expresion>
+<cMultiplo> -> ==
+<cMultiplo> -> <>
+<cMultiplo> -> <
+<cMultiplo> -> >
+<cMultiplo> -> <=
+<cMultiplo> -> >=
+
+.......................................................
+
+<pSecunecia> ->  <Proposicion> <pSecuenciaA>
+<pSecuneciaA> -> ; <pSecuencia>
+
+<pProposicion> -> { <pSecuencia> }
+
+<pAsignacion> -> id = <Expresion>
+
+<pDato> ->  id 
+<pDato> -> num
+
+<pPrint> -> print <pDato>
+
+<pInput> -> input id
+
+<pExec> ->  exec id
+
+<pCondicion> ->  if <condicion> : <proposicion>
+
+<pWhile> -> while <condicion> : <proposicion>
+
+<pFlechas> ->  ->  
+<pFlechas> ->  <-
+
+<pFor> -> for id = <Expresion> <pFlechas> <Expresion> : <Proposicion>
+
+<pMultiplo> ->  <pProposicion>
+<pMultiplo> -> <pAsignacion>
+<pMultiplo> -> <pPrint>
+<pMultiplo> -> <pInput> 
+<pMultiplo> -> <pExec>
+<pMultiplo> -> <pCondicion>
+<pMultiplo> -> <pWhile>
+<pMultiplo> -> <pFor>
+
+.......................................................
+
+<eSignos> -> + 
+<eSignos> -> -
+
+<eExpresion> -> <Termino> <eExpresionA>
+<eExpresionA> -> <eSignos> <eExpresion>
+
+.......................................................
+
+<tSignos> ->  * 
+<tSignos> -> /
+
+<tTermino> ->  <Factor> <tTerminoA>
+<tTerminoA> -> <tSignos> <tTermino>
+.......................................................
+
+
+
+<fExp> -> ( <Expresion> )
+<fFactor> -> <fExp>
+<fFactor> ->  id  
+<fFactor> -> num
+<Factor> -> <fFactor>
