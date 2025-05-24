@@ -55,7 +55,7 @@ GRAMATICA
 <pWhile> -> while <condicion> : <proposicion>
 
 <pFlechas> ->  ->  
-<pFlechas> -> <-
+<pFlechas> ->  <-
 
 <pFor> -> for id = <Expresion> <pFlechas> <Expresion> : <Proposicion>
 
@@ -86,14 +86,12 @@ GRAMATICA
 .......................................................
 
 
+
 <fExp> -> ( <Expresion> )
-
-<fFactor> ->  <fExp> 
-<fFactor> ->  id
-<fFactor> ->  num
-
+<fFactor> -> <fExp>
+<fFactor> ->  id  
+<fFactor> -> num
 <Factor> -> <fFactor>
-
 
 
 
