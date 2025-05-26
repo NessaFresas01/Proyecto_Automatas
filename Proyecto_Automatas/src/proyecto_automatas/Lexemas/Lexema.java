@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package proyecto_automatas.Lexemas;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.regex.Matcher;
@@ -13,6 +14,7 @@ import java.util.regex.Pattern;
  * @author Vanessa, Adrian
  */
 public class Lexema {
+
     private String elemento; // Almacena el lexema (palabra, número, operador, etc.)
     private int tokem;       // Almacena el código/token asociado al lexema
 
@@ -60,13 +62,13 @@ public class Lexema {
         tablaTokens.put("for", 3);
         tablaTokens.put("id", 4);
         tablaTokens.put("if", 5);
-        tablaTokens.put("input",6);
+        tablaTokens.put("input", 6);
         tablaTokens.put("num", 7);
-        tablaTokens.put("print",8);
-        tablaTokens.put("proced",9);
+        tablaTokens.put("print", 8);
+        tablaTokens.put("proced", 9);
         tablaTokens.put("var", 10);
         tablaTokens.put("while", 11);
-        
+
         //Operadores
         tablaTokens.put("=", 20);
         tablaTokens.put(",", 25);
@@ -97,17 +99,15 @@ public class Lexema {
             String token = matcher.group();
             int codigo = tablaTokens.getOrDefault(token, -1);
 
-    if (codigo == -1) { // Verifica si el token no está en la tabla de tokens predefinidos (tablaTokens)
-    // Si el token es un número (contiene solo dígitos)
-    if (token.matches("[1-9]\\d*")) {
-        codigo = 85; // Asigna el código 85 para números (pueden ser enteros o decimales)
-    } 
-    // Si el token es un identificador (palabra que comienza con letra o guion bajo y puede tener números o guion bajo)
-    else if (token.matches("[a-zA-Z_][a-zA-Z0-9_]*")) {
-        codigo = 10; // Asigna el código 10 para identificadores (por ejemplo, nombres de variables)
-      }
-    }
-
+            if (codigo == -1) { // Verifica si el token no está en la tabla de tokens predefinidos (tablaTokens)
+                // Si el token es un número (contiene solo dígitos)
+                if (token.matches("[1-9]\\d*")) {
+                    codigo = 85; // Asigna el código 85 para números (pueden ser enteros o decimales)
+                } // Si el token es un identificador (palabra que comienza con letra o guion bajo y puede tener números o guion bajo)
+                else if (token.matches("[a-zA-Z_][a-zA-Z0-9_]*")) {
+                    codigo = 10; // Asigna el código 10 para identificadores (por ejemplo, nombres de variables)
+                }
+            }
 
             lexemas.add(new Lexema(token, codigo));
         }
@@ -115,5 +115,3 @@ public class Lexema {
         return lexemas;
     }
 }
-
-
