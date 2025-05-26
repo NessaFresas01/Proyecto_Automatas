@@ -6,14 +6,14 @@ GRAMATICA POR IZQUIERDA
 
 <bAsig> ->  id = num
 <bListaAsig> ->  <bAsig> <bListaAsigA>
-<bListaAsigA> -> , <bListaAsig>
+<bListaAsigA> -> , <bListaAsig> ∅ 
 
 <bConstante> -> const<bListaAsig> ; 
 <bConstante> -> ∅ 
 
 
 <bIdentificador> ->  id
-<bIdentificador> -> id , <bIdentificador>
+<bIdentificador> -> id , <bIdentificador> ∅ 
 
 <BDeclaracion> ->  var<bIndetificador>; 
 <BDeclaracion> ->  ∅ 
@@ -35,7 +35,7 @@ GRAMATICA POR IZQUIERDA
 .......................................................
 
 <pSecunecia> ->  <Proposicion> <pSecuenciaA>
-<pSecuneciaA> -> ; <pSecuencia>
+<pSecuneciaA> -> ; <pSecuencia> ∅ 
 
 <pProposicion> -> { <pSecuencia> }
 
@@ -74,7 +74,7 @@ GRAMATICA POR IZQUIERDA
 <eSignos> -> -
 
 <eExpresion> -> <Termino> <eExpresionA>
-<eExpresionA> -> <eSignos> <eExpresion>
+<eExpresionA> -> <eSignos> <eExpresion> ∅ 
 
 .......................................................
 
@@ -82,13 +82,11 @@ GRAMATICA POR IZQUIERDA
 <tSignos> -> /
 
 <tTermino> ->  <Factor> <tTerminoA>
-<tTerminoA> -> <tSignos> <tTermino>
+<tTerminoA> -> <tSignos> <tTermino> ∅ 
 .......................................................
-
-
 
 <fExp> -> ( <Expresion> )
 <fFactor> -> <fExp>
 <fFactor> ->  id  
 <fFactor> -> num
-<Factor> -> <fFactor>
+<Factor> -> <fFactor> 
