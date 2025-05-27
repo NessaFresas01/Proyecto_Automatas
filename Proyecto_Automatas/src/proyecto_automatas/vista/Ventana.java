@@ -44,6 +44,7 @@ public class Ventana extends javax.swing.JFrame {
         jMenuSalir = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenuLexico = new javax.swing.JMenuItem();
+        jMenuSintatico = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Ventana Principal");
@@ -103,6 +104,14 @@ public class Ventana extends javax.swing.JFrame {
         });
         jMenu2.add(jMenuLexico);
 
+        jMenuSintatico.setText("Sintáctico");
+        jMenuSintatico.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuSintaticoActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuSintatico);
+
         jMenuBarComponentes.add(jMenu2);
 
         setJMenuBar(jMenuBarComponentes);
@@ -161,6 +170,11 @@ public class Ventana extends javax.swing.JFrame {
        c.lexemas();
        
     }//GEN-LAST:event_jMenuLexicoActionPerformed
+
+    //MÉTODO PARA SINTÁTICO
+    private void jMenuSintaticoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuSintaticoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuSintaticoActionPerformed
      //GETTERS AND SETTERS
     public JLabel getjLabelArchivo() {
         return jLabelArchivo;
@@ -198,6 +212,7 @@ public class Ventana extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuLexico;
     private javax.swing.JMenuItem jMenuLimpiar;
     private javax.swing.JMenuItem jMenuSalir;
+    private javax.swing.JMenuItem jMenuSintatico;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextArea txtContenido;
