@@ -1,1 +1,52 @@
 FIRST
+
+<Programa> -> <Bloque>.
+............................................................
+
+
+First(Bloque) = First (bConstante)     = {const, ∅} +
+		First (bDeclaracion)   = {var, ∅}   +
+	        First (bProcedimiento) = {proced, ∅}   +
+              = {const, var, proced} + First(Proposición)
+.............................................................
+
+First (cMultiplo) = {== ,<>, <, >, <=, >=}
+
+..............................................................
+
+First(pMultiplo) = First (pProposicion) = { { }     +
+	 	   First (pAsigancion)  =  { id }   +
+		   First (pPrint)       = { print } +
+		   First (pInput) 	= { input } +
+		   First (pExcec) 	= { exec }  +
+		   First (pCondicion)   = { if }    +
+		   First (pWhile) 	= { while } +
+		   First (pFor)		= { for }   +
+First(pMultiplo) = { {, id, print, input, exec, if, while, for}
+
+...........................................................
+
+First (eSignos)     = {+ , -}
+First (eExpresionA) = { ∅ } + First (eSignos) = { +, - }
+		    = { ∅, +, - }
+
+
+...........................................................
+
+First (tSignos)     = {* , /}
+First (tTerminoA)   = { ∅ } + First (tSignos) = { *, / }
+		    = { ∅, *, / }
+
+...........................................................
+
+First (fExp)    = { ( }
+First (fFactor) = First (fExp) = { ( }
+First (Factor)  = First (fFactor) = {id, num} + First (fExp) = { ( }
+		= {id,num, (}
+
+...........................................................
+
+
+
+
+
