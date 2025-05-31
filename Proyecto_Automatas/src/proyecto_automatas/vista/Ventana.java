@@ -173,7 +173,7 @@ public class Ventana extends javax.swing.JFrame {
 
     //MÉTODO PARA SINTÁTICO
     private void jMenuSintaticoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuSintaticoActionPerformed
-        // TODO add your handling code here:
+        c.anSintaxis();
     }//GEN-LAST:event_jMenuSintaticoActionPerformed
      //GETTERS AND SETTERS
     public JLabel getjLabelArchivo() {
