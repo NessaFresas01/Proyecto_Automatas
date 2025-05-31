@@ -93,4 +93,4 @@ public class Control { // Define la clase Control.
             v.getTxtSalida().append("Error en ánalisis sintático");
         }
     }
-}
+}//Hoy 31/05/2025 ho hicimos avance en la programación 
