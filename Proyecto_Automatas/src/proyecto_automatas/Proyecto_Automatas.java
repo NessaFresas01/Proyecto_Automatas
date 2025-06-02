@@ -21,5 +21,5 @@ public class Proyecto_Automatas {
         v.setLocationRelativeTo(null); //Coloca la ventana siempre al centro de la pantalla.
         }
     }
-
+//Hoy 1/06 no tuvimos avance alguno dentro del programa. (Tenemos borradores)
 
