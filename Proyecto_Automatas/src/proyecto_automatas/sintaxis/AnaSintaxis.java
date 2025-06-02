@@ -10,66 +10,142 @@ import proyecto_automatas.control.Control;
 
 /**
  *
- * @author Vanessa, Adrian 
+ * @author Vanessa, Adrian
  */
 public class AnaSintaxis {
+
     private static ArrayList<Lexema> lista; //Lista para los lexemas a analizar
-    private static int index;               //índice para la lista de lexemas
+    private static int index = 0;               //índice para la lista de lexemas
     private static Lexema actual;           //Variable para poder evaluar el lexema 
     private static int tokenActual;         //Variable para los tokens 
-    
+
     //Método principal para inciar el análisis sintático
-    public static boolean analizar(ArrayList<Lexema> lexemas){
+    public static boolean analizar(ArrayList<Lexema> lexemas) {
         lista = lexemas;
         index = 0;
-        
-        if(lista.isEmpty()) return false;
+
+        if (lista.isEmpty()) {
+            return false;
+        }
 
         actual = lista.get(index);
         tokenActual = actual.getTokem();
-        
+
         //Definición de análisis con un try para:
         //<Programa> -> <Bloque>.
-        
-        try{
+        try {
             Programa(); //Inicio
             return true;
-        }catch(Exception e){
-            System.out.println("Error"+e.getMessage());
+        } catch (Exception e) {
+            System.out.println("Error" + e.getMessage());
             return false;
-         }
         }
-    
+    }
+
     //Avanza al siguente lexema 
-    private static void avanzarToken(){
-        if(index < lista.size() -1){
-          index++;
-          actual = lista.get(index);
-          
-        }else{
+    private static void avanzarToken() {
+        if (index < lista.size() - 1) {
+            index++;
+            actual = lista.get(index);
+
+        } else {
             tokenActual = -1; //Fin
         }
-        
+
     }
     /**
-     * Regla de producción <Programa> -> <Bloque>.
-     * Se espera un punto (.) al final del programa.
+     * Regla <Programa> -> <Bloque>. Se espera un punto (.) al final del
+     * programa.
      */
-
-    private static void Programa() throws Exception {
-        Bloque(); //Analizador para el bloque principal del lexema
-        
-        if(tokenActual == 120){
+    private static void Programa() {
+        Bloque(); //Analizador para el bloque principal del lexema 
+        if (tokenActual == 120) {
             //El . llega el valor de 120
             avanzarToken(); //Aqui entro el punto
             System.out.println("Correcto");
-        }else{
-            throw new Exception("Error, se esperaba un .");
+        } else {
+            throw new RuntimeException("Se esperaba '.' al final del programa");
+        }
+        //System.out.println(".");
+    }
+
+    //<Bloque> -> <bConstante> <bDeclaracion> <bProcedimiento> <Proposicion>
+    private static void Bloque() {
+        bConstante();
+        /* bDeclaracion();
+       bProcedimiento();
+       Proposicion();*/
+    }
+
+    //<bAsig> ->  id = num
+    private static void bAsig() {
+        if (tokenActual == 4) { //4 corresponde a id
+            avanzarToken();
+            if (tokenActual == 20) { //20 corresponde a  = 
+                avanzarToken();
+                if (tokenActual == 7) { // 7 Corresponde a num
+                    avanzarToken();
+                }
+            } else {
+                throw new RuntimeException("Se esperaba un num al despues de = ");
+            }
+
+        } else {
+            throw new RuntimeException("Se esperaba un identificador");
+        }
+    }
+    // <bListaAsig> -> <bAsig> <bListaAsigA>
+
+    private static void bListaAsig() {
+        bAsig();
+        bListaAsigA();
+    }
+    // <bListaAsigA> -> ∅ | , <bListaAsig>
+
+    private static void bListaAsigA() {
+        if (tokenActual == 25) { // el 25 es para la ,
+            avanzarToken();
+            bListaAsig();
         }
     }
 
-    private static void Bloque() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    // <bConstante> -> const <bListaAsig> ; | ∅
+    private static void bConstante() {
+        if (tokenActual == 1) { //1 = Const
+            avanzarToken();
+            bListaAsig();
+            if (tokenActual == 30) { // 3o corresponde a ;
+                avanzarToken();
+            } else {
+                throw new RuntimeException("Se esperaba ';' después de la declaración de constantes");
+
+            }
+
+        }
     }
-        
+    // <bIdentificador> -> id | id , <bIdentificador>
+    private static void bIdentificador() {
+        if (tokenActual == 4) { //4 corresponde a id
+            avanzarToken();
+            if (tokenActual == 25) {
+                avanzarToken();
+                bIdentificador();
+            }
+        } else {
+            throw new RuntimeException("Se esperaba un identificador");
+        }
+    }
+    // <bDeclaracion> -> var <bIdentificador> ; | ∅
+
+    private static void bDeclaracion() {
+        if (tokenActual == 10) { //10 corresponde a var
+            avanzarToken();
+            bIdentificador();
+            if (tokenActual == 30) { //30 corresponde a ;
+                avanzarToken();
+            } else {
+                throw new RuntimeException("Se esperaba ';' después de la declaración de variables");
+            }
+        }
+    }
 }
