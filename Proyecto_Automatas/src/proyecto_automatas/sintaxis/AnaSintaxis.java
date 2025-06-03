@@ -148,4 +148,99 @@ public class AnaSintaxis {
             }
         }
     }
+    
+    //Chaguitos para q jale :D
+    
+    //<bProcedimiento> -> Proced id ; <Bloque> ; | ∅
+    private static void bProcedimiento(){
+        
+    }
+     // <Proposicion>
+    private static void Proposicion(){
+        
+    }
+     // <pMultiplo> -> 
+    private static void pMultiplo(){
+        
+    }
+    // <pProposicion> -> { <pSecuencia> }
+    private static void pProposicion(){
+        
+    }
+    // <pSecuencia> -> <Proposicion> <pSecuenciaA>
+    private void pSecuencia(){
+        
+    }
+     // <pSecuenciaA> -> ∅ | ; <pSecuencia>
+    private static void pSecuenciaA(){
+        
+    }
+    // <pAsignacion> -> id = <Expresion>
+    private static void pAsignacion(){
+        
+    }
+    // <pPrint> -> print <pDato>
+    private static void pPrint(){
+        
+    }
+    // <pInput> -> input id
+    private static void pInput(){
+        
+    }
+    // <pExec> -> exec id
+    private static void pExce(){
+        
+    }
+    // <pCondicion> -> if <cCondicion> : <Proposicion>
+    private static void pCondicion(){
+        
+    }
+     // <pFor> -> for id = <Expresion> <pFlechas> <Expresion> : <Proposicion>
+    private static void pFor(){
+        
+    }
+     // <pFlechas> -> -> | <-
+    private static void pFlechas(){
+        
+    }
+    // <pDato> -> id | num
+    private static void pDato(){
+        
+    }
+    // <cCondicion> -> <Expresion> <cMultiplo> <Expresion>
+    private static void cCondicion(){
+        Expresion();
+        cMultiplo();
+        Expresion();
+    }
+    // <cMultiplo> -> == | <> | < | > | <= | >=
+    private static void cMultiplo(){
+        
+    }
+    
+     // <Expresion> -> <Termino> <eExpresionA>
+    private static void Expresion(){
+        
+    }
+    // <eExpresionA> -> ∅ | <eSignos> <Expresion>
+    private static void eExpresionA(){
+        
+    }
+     // <Termino> -> <Factor> <tTerminoA>
+    private static void Termino(){
+        
+    }
+     // <tTerminoA> -> ∅ | <tSignos> <Termino>
+    private static void tTerminoA(){
+        
+    }
+     // <Factor> -> <fFactor>
+    private static void Factor(){
+        
+    }
+    
+    
+    
+    
+    
 }
