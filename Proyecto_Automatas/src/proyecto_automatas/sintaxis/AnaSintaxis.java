@@ -192,7 +192,7 @@ public class AnaSintaxis {
     private static void pMultiplo() {
         switch (tokenActual) {
             case 65: // {
-                pPropisicion();
+                pProposicion();
                 break;
             case 4: // id
                 pAsignacion();
@@ -204,7 +204,7 @@ public class AnaSintaxis {
                 pInput();
                 break;
             case 2: //exec
-                pExec();
+                pExce();
                 break;
             case 5: //if
                 pCondicion();
@@ -271,6 +271,12 @@ public class AnaSintaxis {
     private static void pCondicion() {
 
     }
+     // <pWhile> -> while <cCondicion> : <Proposicion>
+    
+    private static void pWhile() {
+        
+    }
+
     // <pFor> -> for id = <Expresion> <pFlechas> <Expresion> : <Proposicion>
 
     private static void pFor() {
@@ -321,6 +327,16 @@ public class AnaSintaxis {
     // <Factor> -> <fFactor>
 
     private static void Factor() {
+
+    }
+    // <fFactor> -> <fExp> | id | num
+
+    private static void fFactor() {
+
+    }
+    // <fExp> -> ( <Expresion> )
+
+    private static void fExp() {
 
     }
 
