@@ -239,58 +239,129 @@ public class AnaSintaxis {
 
     // <pSecuencia> -> <Proposicion> <pSecuenciaA>
     private static void pSecuencia() {
-
+        Proposicion();
+        pSecuenciaA();
     }
+
     // <pSecuenciaA> -> ∅ | ; <pSecuencia>
-
     private static void pSecuenciaA() {
-
+        if (tokenActual == 30) { //30 es para ;
+            avanzarToken();
+            pSecuenciaA();
+        }
     }
 
     // <pAsignacion> -> id = <Expresion>
     private static void pAsignacion() {
+        if (tokenActual == 4) { //4 es para el id
+            avanzarToken();
+            if (tokenActual == 20) { // 20 es para el =
+                avanzarToken();
+                Expresion();
+
+            } else {
+                throw new RuntimeException("Se esperaba '=' ");
+            }
+        } else {
+            throw new RuntimeException("Se esperaba un identificador");
+        }
 
     }
 
     // <pPrint> -> print <pDato>
     private static void pPrint() {
-
+        if (tokenActual == 8) { // 8 para print
+            avanzarToken();
+            pDato();
+        } else {
+            throw new RuntimeException("Se esperaba 'print");
+        }
     }
 
     // <pInput> -> input id
     private static void pInput() {
-
+        if (tokenActual == 6) { // 6 es para input
+            avanzarToken();
+            if (tokenActual == 4) { //4 corresponde a id
+                avanzarToken();
+            } else {
+                throw new RuntimeException("Se esperaba identificar despues de input");
+            }
+        } else {
+            throw new RuntimeException("Se esperaba 'input' ");
+        }
     }
 
     // <pExec> -> exec id
     private static void pExce() {
+        if (tokenActual == 2) { //el 2 corresponde a exec
+            avanzarToken();
+            if (tokenActual == 4) { //4 es para id
+                avanzarToken();
 
+            } else {
+                throw new RuntimeException("Se esperaba identificador despues de 'exec' ");
+            }
+        } else {
+            throw new RuntimeException("Se esperaba 'exec' ");
+        }
     }
 
     // <pCondicion> -> if <cCondicion> : <Proposicion>
     private static void pCondicion() {
+        if (tokenActual == 5) { //el 5 corresponde a exec
+            avanzarToken();
+            cCondicion();
+            if (tokenActual == 75) { //4 es para id
+                avanzarToken();
+                Proposicion();
 
+            } else {
+                throw new RuntimeException("Se esperaba : despues de condicion ");
+            }
+        } else {
+            throw new RuntimeException("Se esperaba 'if' ");
+        }
     }
-     // <pWhile> -> while <cCondicion> : <Proposicion>
-    
+
+    // <pWhile> -> while <cCondicion> : <Proposicion>
     private static void pWhile() {
-        
+        if (tokenActual == 11) { //el 11 corresponde a while
+            avanzarToken();
+            cCondicion();
+            if (tokenActual == 75) { //75 es para :
+                avanzarToken();
+                Proposicion();
+            } else {
+                throw new RuntimeException("Se esperaba : despues de condicion ");
+            }
+        } else {
+            throw new RuntimeException("Se esperaba 'while' ");
+        }
     }
 
     // <pFor> -> for id = <Expresion> <pFlechas> <Expresion> : <Proposicion>
-
     private static void pFor() {
-
+        //Pendiente pq esta demasido largo y aaaaaaaaa 
     }
     // <pFlechas> -> -> | <-
 
     private static void pFlechas() {
+        if (tokenActual == 80 || tokenActual == 85) { //Puede ser -> o <-
+            avanzarToken();
+        } else {
+            throw new RuntimeException("Se esperaba -> o <-");
+        }
 
     }
 
     // <pDato> -> id | num
     private static void pDato() {
-
+        if (tokenActual == 4 || tokenActual == 7) { //Puede ser id o num
+            avanzarToken();
+        } else {
+            throw new RuntimeException("Se esperaba un identificador o numero ");
+        }
     }
 
     // <cCondicion> -> <Expresion> <cMultiplo> <Expresion>
