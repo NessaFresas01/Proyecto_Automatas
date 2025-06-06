@@ -23,23 +23,17 @@ public class AnaSintaxis {
     public static boolean analizar(ArrayList<Lexema> lexemas) {
         lista = lexemas;
         index = 0;
-
+        errores.clear();
         if (lista.isEmpty()) {
-            return false;
+            throw new RuntimeException("El programa está vacío");
         }
 
         actual = lista.get(index);
         tokenActual = actual.getTokem();
 
-        //Definición de análisis con un try para:
         //<Programa> -> <Bloque>.
-        try {
-            Programa(); //Inicio
-            return true;
-        } catch (Exception e) {
-            System.out.println("Error" + e.getMessage());
-            return false;
-        }
+        Programa(); //Inicio
+        return true;
     }
 
     //Avanza al siguente lexema 
@@ -47,53 +41,67 @@ public class AnaSintaxis {
         if (index < lista.size() - 1) {
             index++;
             actual = lista.get(index);
-
+            tokenActual = actual.getTokem();
         } else {
             tokenActual = -1; //Fin
+            int lineaFin = lista.isEmpty() ? 0 : lista.get(lista.size() - 1).getLinea() + 1;
+            actual = new Lexema("fin de entrada", -1, lineaFin);
+
         }
 
     }
+
+    public static ArrayList<String> errores = new ArrayList<>();
 
     /**
      * Regla <Programa> -> <Bloque>. Se espera un punto (.) al final del
      * programa.
      */
     private static void Programa() {
-        Bloque(); //Analizador para el bloque principal del lexema 
+        /* Bloque(); //Analizador para el bloque principal del lexema 
         if (tokenActual == 120) {
             //El . llega el valor de 120
             avanzarToken(); //Aqui entro el punto
-            System.out.println("Correcto");
         } else {
-            throw new RuntimeException("Se esperaba '.' al final del programa");
+            lanzarError("Programa", ".");
         }
-        //System.out.println(".");
+        //System.out.println(".");*/
+        Bloque();
+        System.out.println("Revisando token para '.' - tokenActual=" + tokenActual + ", lexema='" + obtenerLexemaActual() + "'");
+        if (tokenActual == 120) {
+            avanzarToken();
+        } else {
+            lanzarError("Programa", ".");
+        }
     }
 
     //<Bloque> -> <bConstante> <bDeclaracion> <bProcedimiento> <Proposicion>
     private static void Bloque() {
         bConstante();
-        /* bDeclaracion();
-       bProcedimiento();
-       Proposicion();*/
+        bDeclaracion();
+        bProcedimiento();
+        Proposicion();
     }
 
     //<bAsig> ->  id = num
-    private static void bAsig() {
+    private static void bAsig() { //se puede cambiar
         if (tokenActual == 4) { //4 corresponde a id
             avanzarToken();
             if (tokenActual == 20) { //20 corresponde a  = 
                 avanzarToken();
                 if (tokenActual == 7) { // 7 Corresponde a num
                     avanzarToken();
+                } else {
+                    lanzarError("bAsig", "num");
                 }
             } else {
-                throw new RuntimeException("Se esperaba un num al despues de = ");
+                lanzarError("bAsig", "=");
             }
 
         } else {
-            throw new RuntimeException("Se esperaba un identificador");
+            lanzarError("bAsig", "identificador");
         }
+
     }
     // <bListaAsig> -> <bAsig> <bListaAsigA>
 
@@ -118,10 +126,9 @@ public class AnaSintaxis {
             if (tokenActual == 30) { // 3o corresponde a ;
                 avanzarToken();
             } else {
-                throw new RuntimeException("Se esperaba ';' después de la declaración de constantes");
+                lanzarError("bConstante", ";");
 
             }
-
         }
     }
 
@@ -134,7 +141,7 @@ public class AnaSintaxis {
                 bIdentificador();
             }
         } else {
-            throw new RuntimeException("Se esperaba un identificador");
+            lanzarError("bIdentificador", "idetificador");
         }
     }
     // <bDeclaracion> -> var <bIdentificador> ; | ∅
@@ -146,46 +153,42 @@ public class AnaSintaxis {
             if (tokenActual == 30) { //30 corresponde a ;
                 avanzarToken();
             } else {
-                throw new RuntimeException("Se esperaba ';' después de la declaración de variables");
+                lanzarError("bDeclaracion", ";");
             }
         }
     }
 
     //Chaguitos para q jale :D
+    //corregir, depues del ; y antes de la barra de | lleva bprocedimiento
     //<bProcedimiento> -> Proced id ; <Bloque> ; | ∅
-    private static void bProcedimiento() {
-        if (tokenActual == 9) { //El 9 corresponde a const
-            avanzarToken();
-            if (tokenActual == 4) { //4 corresponde a id
-                avanzarToken();
-                if (tokenActual == 30) { //30 es para ;
-                    avanzarToken();
-                    Bloque();
-                    if (tokenActual == 30) { //30 es para ;
-                        avanzarToken();
-                    } else {
-                        throw new RuntimeException("Se esperaba ';' después del bloque del procedimiento");
-                    }
-                } else {
-                    throw new RuntimeException("Se esperaba ';' después del bloque del indentificador");
-                }
-            } else {
-                throw new RuntimeException("Se esperaba un identificador despu[es de proced");
-            }
+    private static void bProcedimiento() { //se puede cambiar
+        if (tokenActual != 9) { //El 9 corresponde a const
+            return;
         }
+        avanzarToken();
+
+        if (tokenActual != 4) { //4 corresponde a id
+            lanzarError("bProcedimiento", "identificador");
+        }
+        avanzarToken();
+
+        if (tokenActual == 30) { //30 es para ;
+            lanzarError("bProcedimiento", ";");
+        }
+        avanzarToken();
+        Bloque();
+
+        if (tokenActual == 30) { //30 es para ;
+            lanzarError("bProcedimiento", ";");
+        }
+        avanzarToken();
+        bProcedimiento();
+
     }
 
-    // <Proposicion>
-    private static void Proposicion() {
-
-        //Se supone que al entrar el . se finaliza el programa
-        //el -1 verifica que ya no hay tokens que analizar
-        //No terminal 
-        if (tokenActual != 120 && tokenActual != -1) {
-            //Si aun hay tokens entonces entra de nuevo a pMultiplo();
-            pMultiplo();
-        }
-
+    // <pProposicion> -> { <pSecuencia> }
+    private static void Proposicion() { //corregir
+        pMultiplo();
     }
 
     // <pMultiplo> -> 
@@ -216,30 +219,34 @@ public class AnaSintaxis {
                 pFor();
                 break;
             default:
-                throw new RuntimeException("Proposicion no reconocidaF");
+                lanzarError("Proposicion", "una instrucción válida (como print, if, while, etc.)");
+                avanzarToken();
         }
     }
 
-    // <pProposicion> -> { <pSecuencia> }
+    // <pProposicion> -> {; <pSecuencia> } //falta programar el ;
     private static void pProposicion() {
         if (tokenActual == 65) { // {
             avanzarToken();
             pSecuencia();
-            if (tokenActual == 70) { // }
+            if (tokenActual == 30) { // ;
                 avanzarToken();
+                if (tokenActual == 70) { // }
+                    avanzarToken();
+                } else {
+                    lanzarError("pProposicion", "{");
+                }
             } else {
-                throw new RuntimeException("Se esperaba '}' para cerrar la proposición");
-
+                lanzarError("pProposicion", ";");
             }
         } else {
-            throw new RuntimeException("Se esperaba '{' para iniciar proposición");
-
+            lanzarError("pProposicion", "}");
         }
     }
 
     // <pSecuencia> -> <Proposicion> <pSecuenciaA>
     private static void pSecuencia() {
-        Proposicion();
+        Proposicion(); //
         pSecuenciaA();
     }
 
@@ -247,7 +254,7 @@ public class AnaSintaxis {
     private static void pSecuenciaA() {
         if (tokenActual == 30) { //30 es para ;
             avanzarToken();
-            pSecuenciaA();
+            pSecuencia();
         }
     }
 
@@ -260,10 +267,10 @@ public class AnaSintaxis {
                 Expresion();
 
             } else {
-                throw new RuntimeException("Se esperaba '=' ");
+                lanzarError("pAsignacion", "=");
             }
         } else {
-            throw new RuntimeException("Se esperaba un identificador");
+            lanzarError("pAsignacion", "identificador");
         }
 
     }
@@ -274,7 +281,7 @@ public class AnaSintaxis {
             avanzarToken();
             pDato();
         } else {
-            throw new RuntimeException("Se esperaba 'print");
+            lanzarError("pPrint", "print");
         }
     }
 
@@ -285,10 +292,10 @@ public class AnaSintaxis {
             if (tokenActual == 4) { //4 corresponde a id
                 avanzarToken();
             } else {
-                throw new RuntimeException("Se esperaba identificar despues de input");
+                lanzarError("pInput", "identificador después de 'input'");
             }
         } else {
-            throw new RuntimeException("Se esperaba 'input' ");
+            lanzarError("pInput", "input");
         }
     }
 
@@ -300,10 +307,10 @@ public class AnaSintaxis {
                 avanzarToken();
 
             } else {
-                throw new RuntimeException("Se esperaba identificador despues de 'exec' ");
+                lanzarError("pExec", "identificador después de 'exec'");
             }
         } else {
-            throw new RuntimeException("Se esperaba 'exec' ");
+            lanzarError("pExec", "'exec'");
         }
     }
 
@@ -312,15 +319,15 @@ public class AnaSintaxis {
         if (tokenActual == 5) { //el 5 corresponde a exec
             avanzarToken();
             cCondicion();
-            if (tokenActual == 75) { //4 es para id
+            if (tokenActual == 75) { //75 es para id
                 avanzarToken();
                 Proposicion();
 
             } else {
-                throw new RuntimeException("Se esperaba : despues de condicion ");
+                lanzarError("pCondicion", ": después de la condición");
             }
         } else {
-            throw new RuntimeException("Se esperaba 'if' ");
+            lanzarError("pCondicion", "if");
         }
     }
 
@@ -333,24 +340,48 @@ public class AnaSintaxis {
                 avanzarToken();
                 Proposicion();
             } else {
-                throw new RuntimeException("Se esperaba : despues de condicion ");
+                lanzarError("pWhile", ": después de la condición");
             }
         } else {
-            throw new RuntimeException("Se esperaba 'while' ");
+            lanzarError("pWhile", "while");
         }
     }
 
     // <pFor> -> for id = <Expresion> <pFlechas> <Expresion> : <Proposicion>
     private static void pFor() {
         //Pendiente pq esta demasido largo y aaaaaaaaa 
+        if (tokenActual == 3) { // for
+            avanzarToken();
+            if (tokenActual == 4) { // id
+                avanzarToken();
+                if (tokenActual == 20) { // =
+                    avanzarToken();
+                    Expresion();
+                    pFlechas();
+                    Expresion();
+                    if (tokenActual == 75) { // :
+                        avanzarToken();
+                        Proposicion();
+                    } else {
+                        lanzarError("pFor", " : ");
+                    }
+                } else {
+                    lanzarError("pFor", "  = ");
+                }
+            } else {
+                lanzarError("pFor", "identificador");
+            }
+        } else {
+            lanzarError("pFor", "for");
+        }
     }
-    // <pFlechas> -> -> | <-
 
+    // <pFlechas> -> -> | <-
     private static void pFlechas() {
         if (tokenActual == 80 || tokenActual == 85) { //Puede ser -> o <-
             avanzarToken();
         } else {
-            throw new RuntimeException("Se esperaba -> o <-");
+            lanzarError("pFlechas", "'->' o '<-'");
         }
 
     }
@@ -360,7 +391,7 @@ public class AnaSintaxis {
         if (tokenActual == 4 || tokenActual == 7) { //Puede ser id o num
             avanzarToken();
         } else {
-            throw new RuntimeException("Se esperaba un identificador o numero ");
+            lanzarError("pDato", "identificador o número");
         }
     }
 
@@ -373,42 +404,87 @@ public class AnaSintaxis {
 
     // <cMultiplo> -> == | <> | < | > | <= | >=
     private static void cMultiplo() {
-
+        if (tokenActual == 35 || tokenActual == 40 || tokenActual == 45
+                || tokenActual == 50 || tokenActual == 55 || tokenActual == 60) {
+            avanzarToken();
+        } else {
+            lanzarError("cMultiplo", "operador relacional (==, <>, <, >, <=, >=)");
+        }
     }
 
     // <Expresion> -> <Termino> <eExpresionA>
     private static void Expresion() {
+        Termino();
+        eExpresionA();
 
     }
 
     // <eExpresionA> -> ∅ | <eSignos> <Expresion>
     private static void eExpresionA() {
+        if (tokenActual == 90 || tokenActual == 95) { // + o -
+            avanzarToken();
+            Expresion();
+        }
 
     }
+
     // <Termino> -> <Factor> <tTerminoA>
-
     private static void Termino() {
-
+        Factor();
+        tTerminoA();
     }
     // <tTerminoA> -> ∅ | <tSignos> <Termino>
 
     private static void tTerminoA() {
+        if (tokenActual == 110 || tokenActual == 115) { // * o /
+            avanzarToken();
+            Termino();
+        }
 
     }
-    // <Factor> -> <fFactor>
 
+    // <Factor> -> <fFactor>
     private static void Factor() {
+        fFactor();
 
     }
     // <fFactor> -> <fExp> | id | num
 
     private static void fFactor() {
+        if (tokenActual == 100) { // (
+            fExp();
+        } else if (tokenActual == 4 || tokenActual == 7) { // id o num
+            avanzarToken();
+        } else {
+            lanzarError("fFactor", "identificador, número o '('");
+        }
 
     }
     // <fExp> -> ( <Expresion> )
 
     private static void fExp() {
+        if (tokenActual == 100) { // (
+            avanzarToken();
+            Expresion();
+            if (tokenActual == 105) { // )
+                avanzarToken();
+            } else {
+                lanzarError("fExp", "')'");
+            }
+        } else {
+            lanzarError("fExp", "'('");
+        }
+    }
 
+    private static String obtenerLexemaActual() {
+        return actual != null ? actual.getElemento() : "fin de entrada";
+    }
+
+    public static void lanzarError(String regla, String esperado) {
+        String mensaje = "Error en <" + regla + ">, línea " + actual.getLinea()
+                + ": se esperaba '" + esperado + "' pero se encontró '" + obtenerLexemaActual() + "'";
+        errores.add(mensaje);
+        avanzarToken(); // Avanza a los demas bloques
     }
 
 }

@@ -17,11 +17,13 @@ public class Lexema {
 
     private String elemento; // Almacena el lexema (palabra, número, operador, etc.)
     private int tokem;       // Almacena el código/token asociado al lexema
+    private int linea;      //Para los saltos de linea
 
     // Constructor que inicializa un lexema con su contenido y su token
-    public Lexema(String elemento, int tokem) {
+    public Lexema(String elemento, int tokem, int linea) {
         this.elemento = elemento;
         this.tokem = tokem;
+        this.linea = linea;
     }
 
     // Método getter para obtener el contenido del lexema
@@ -44,10 +46,19 @@ public class Lexema {
         this.tokem = tokem;
     }
 
+    //Para linea
+    public int getLinea() {
+        return linea;
+    }
+
+    public void setLinea(int linea) {
+        this.linea = linea;
+    }
+
     // Método que define cómo se imprime el objeto: primero el contenido, luego el tokem
     @Override
     public String toString() {
-        return elemento + "\t" + tokem; // Separa con tabulador
+        return elemento + "\t" + tokem + "\tLínea: " + linea;
     }
 
     // El método analizar() realiza el análisis léxico del texto de entrada
@@ -93,27 +104,33 @@ public class Lexema {
         tablaTokens.put(".", 120);
 
         Pattern patron = Pattern.compile("[a-zA-Z_][a-zA-Z0-9_]*|[1-9]\\d*|==|<=|>=|<>|->|<-|[+\\-*/=;,<>{}()[:].]");
-        Matcher matcher = patron.matcher(texto);
 
-        while (matcher.find()) {
-            String token = matcher.group();
-            int codigo = tablaTokens.getOrDefault(token, -1);
+        String[] lineas = texto.split("\\n");
+        int numeroLinea = 1;
 
-            if (codigo == -1) { // Verifica si el token no está en la tabla de tokens predefinidos (tablaTokens)
-                // Si el token es un número (contiene solo dígitos)
-                if (token.matches("[1-9]\\d*")) {
-                    codigo = 85; // Asigna el código 85 para números (pueden ser enteros o decimales)
-                } // Si el token es un identificador (palabra que comienza con letra o guion bajo y puede tener números o guion bajo)
-                else if (token.matches("[a-zA-Z_][a-zA-Z0-9_]*")) {
-                    codigo = 10; // Asigna el código 10 para identificadores (por ejemplo, nombres de variables)
+        for (String lineaTexto : lineas) {
+            Matcher matcher = patron.matcher(lineaTexto);
+
+            while (matcher.find()) {
+                String token = matcher.group();
+                int codigo = tablaTokens.getOrDefault(token, -1);
+
+                if (codigo == -1) { // Verifica si el token no está en la tabla de tokens predefinidos (tablaTokens)
+                    // Si el token es un número (contiene solo dígitos)
+                    if (token.matches("[1-9]\\d*")) {
+                        codigo = 85; // Asigna el código 85 para números (pueden ser enteros o decimales)
+                    } // Si el token es un identificador (palabra que comienza con letra o guion bajo y puede tener números o guion bajo)
+                    else if (token.matches("[a-zA-Z_][a-zA-Z0-9_]*")) {
+                        codigo = 125; // Asigna el código 10 para identificadores (por ejemplo, nombres de variables)
+                    }
                 }
-            }
 
-            lexemas.add(new Lexema(token, codigo));
+                lexemas.add(new Lexema(token, codigo, numeroLinea));
+            }
+            numeroLinea++;
+
         }
 
         return lexemas;
     }
-    
-    
 }

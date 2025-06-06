@@ -80,17 +80,31 @@ public class Control { // Define la clase Control.
     public void anSintaxis() {
         v.getTxtSalida().setText(""); // Limpiar la salida
         String texto = v.getTxtContenido().getText(); // Obtener el texto de entrada
-        ArrayList<Lexema> lista = Lexema.analizar(texto); // Analizar el texto
 
+        ArrayList<Lexema> lista; // Analizar el texto
+        try {
+            lista = Lexema.analizar(texto);
+        } catch (RuntimeException e) {
+            v.getTxtSalida().append("Error lexico : " + e.getMessage() + "\n");
+            return;
+        }
         //Mostrar lexemas en salida
         for (Lexema l : lista) {
             v.getTxtSalida().append(l.toString() + "\n");
         }
-        //Realizar el análisis
-        if (AnaSintaxis.analizar(lista)) {
-            v.getTxtSalida().append("Ánalisis sintático correcto");
-        } else {
-            v.getTxtSalida().append("Error en ánalisis sintático");
+        try {
+            boolean correcto = AnaSintaxis.analizar(lista);
+
+            if (AnaSintaxis.errores.isEmpty()) {
+                v.getTxtSalida().append("Análisis sintáctico correcto\n");
+            } else {
+                v.getTxtSalida().append("Errores encontrados durante el análisis sintáctico:\n");
+                for (String error : AnaSintaxis.errores) {
+                    v.getTxtSalida().append(" - " + error + "\n");
+                }
+            }
+        } catch (RuntimeException e) {
+            v.getTxtSalida().append("Error de sintaxis: " + e.getMessage() + "\n");
         }
     }
 }//Hoy 31/05/2025 ho hicimos avance en la programación 
